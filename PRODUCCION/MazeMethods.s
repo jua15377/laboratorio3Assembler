@@ -98,13 +98,13 @@ character:
 	
 	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
 
-	ldr r7,=xRes			@Asignar valor al comparador de X	
+	ldr r7,=ancho			@Asignar valor al comparador de X	
 	ldr r7,[r7]
 	ldr r9, =origenX
 	ldr r9, [r9]
 	add r7, r9
 
-	ldr r8,=yRes 			@Asignar valor al comparador de Y
+	ldr r8,=altura 			@Asignar valor al comparador de Y
 	ldr r8,[r8]
 	ldr r10, =origenY
 	ldr r10, [r10]

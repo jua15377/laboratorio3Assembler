@@ -54,7 +54,7 @@ main:
 .data
 .align 2
 
-.global pixelAddr, origenX, origenY
+.global pixelAddr, origenX, origenY, ancho, altura
 
 xRes: 							@Resolucion en X
 	.word 0
@@ -66,4 +66,8 @@ pixelAddr: 						@Direccion de la pantalla
 origenX: 						@Sera el punto de origen, en X, para pintar la imagen
 	.word 0
 origenY: 						@Sera el punto de origen, en Y, para pintar la imagen
+	.word 0 
+ancho: 
+	.word 0 
+altura: 
 	.word 0 
