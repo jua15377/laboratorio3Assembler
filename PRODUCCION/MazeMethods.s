@@ -96,17 +96,17 @@ character:
 
 	mov r5, r0
 	
-	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	mov r6,#0 						@Contador que cuenta la cantidad de bytes dibujados
 
-	ldr r7,=ancho			@Asignar valor al comparador de X	
+	ldr r7,=ancho					@Asignar valor al comparador de X	
 	ldr r7,[r7]
-	ldr r9, =origenX 		@Con la diferencia de tener un origen inicial donde colocarlo
+	ldr r9, =origenX 				@Con la diferencia de tener un origen inicial donde colocarlo
 	ldr r9, [r9]
 	add r7, r9
 
-	ldr r8,=altura 			@Asignar valor al comparador de Y
-	ldr r8,[r8]
-	ldr r10, =origenY 		@Con diferencia de tener un origen inicial donde colocarlo
+	ldr r8,=altura 					@Asignar valor al comparador de Y
+	ldr r8,[r8]	
+	ldr r10, =origenY 				@Con diferencia de tener un origen inicial donde colocarlo
 	ldr r10, [r10]
 	add r8, r10
 
@@ -132,7 +132,7 @@ character:
 			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
 			pop {r0-r12}
 		resolucion: 	
-			add r6,#1 		@Incrementamos los bytes dibujados
+			add r6,#1 				@Incrementamos los bytes dibujados
 			add r1,#1 				@Aumenta el contador del ancho de la imagen
 		
 			b dibujaPixel
@@ -145,6 +145,8 @@ character:
 		bne filas
 
 	pop {pc}
+
+
 
 
 
