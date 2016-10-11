@@ -20,7 +20,7 @@
 background: 
 	push {lr}
 
-		x	  .req r1
+		x	      .req r1        	@nombrar registros para mayor facilidad
 		y         .req r2
 		colour 	  .req r3
 		addrPixel .req r5
@@ -30,12 +30,12 @@ background:
 
 	mov countByte,#0 				@Contador que cuenta la cantidad de bytes dibujados
 	ldr ancho,=xRes
-	ldr ancho,[ancho]
+	ldr ancho,[ancho] 				@Establecemos el ancho de la pantalla
 	ldr alto,=yRes
-	ldr alto,[alto]
-	mov y,#0
+	ldr alto,[alto] 				@Establecemos el alto de la pantalla
+	mov y,#0 
 
-	@Ciclo que dibuja filas
+	/*-----------------------------Ciclo que dibuja filas-----------------------------------*/
 	drawRow$:
 		mov x,#0
 		drawPixel$:
@@ -100,13 +100,13 @@ character:
 
 	ldr r7,=ancho			@Asignar valor al comparador de X	
 	ldr r7,[r7]
-	ldr r9, =origenX
+	ldr r9, =origenX 		@Con la diferencia de tener un origen inicial donde colocarlo
 	ldr r9, [r9]
 	add r7, r9
 
 	ldr r8,=altura 			@Asignar valor al comparador de Y
 	ldr r8,[r8]
-	ldr r10, =origenY
+	ldr r10, =origenY 		@Con diferencia de tener un origen inicial donde colocarlo
 	ldr r10, [r10]
 	add r8, r10
 
@@ -122,12 +122,16 @@ character:
 			bge finIm
 			
 			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+
+			cmp r3, #39
+			beq resolucion
 			
 			ldr r0,=pixelAddr
 			ldr r0,[r0] 
 			push {r0-r12}
 			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
 			pop {r0-r12}
+		resolucion: 	
 			add r6,#1 		@Incrementamos los bytes dibujados
 			add r1,#1 				@Aumenta el contador del ancho de la imagen
 		
@@ -141,6 +145,8 @@ character:
 		bne filas
 
 	pop {pc}
+
+
 
 
 
