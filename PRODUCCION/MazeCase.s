@@ -5,69 +5,37 @@
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
 *******************************************************************************/
-
+@@compliar con: gcc -o main MazeCase.s MazeCaseMetods.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c
  .text
  .align 2
  .global main
 main:
 
-/*--------------------INICIANDO DIRECCIONES Y POSICIONES----------------------*/
-	
-	ldr r0, =xRes				@Se da la direccion donde ira la resolucion de X
-	ldr r1, =yRes 				@Se da la direccion donde ira la resolucion de Y
+@@--------------------INICIANDO DIRECCIONES Y POSICIONES----------------------*/
 	bl getScreenAddr 			@Se obtiene la direccion de la pantalla 
 	ldr r1,=pixelAddr
 	str r0,[r1]
-
-	push {r0-r12}
-	bl background				@subrutina que colorea el fondo debidamente
-	pop {r0-r12}
-/*----------------------IMPRESION DEL PERSONAJE---------------------------------*/
-	ldr r0, =ancho				@guarda en memoria el ancho de la imagen
-	ldr r1, =gallinaSprite1Width
-	ldr r1, [r1]
-	str r1, [r0]
-
-	ldr r0, =altura				@guarda en memoria la altura de la imagen
-	ldr r1, =gallinaSprite1Height
-	ldr r1, [r1]
-	str r1, [r0]
-
-	ldr r0, =0 					@guardar la posicion inicial de pintado de X en memoria
-	ldr r1, =origenX
-	str r0, [r1]
-
-	ldr r0, =0					@guardar la posicion inicial de pintado de Y en memoria
-	ldr r1, =origenX
-	str r0, [r1]
-
-	ldr r0, =gallinaSprite1 	@Carga la matriz de colores en r0
-
-	push {r0-r12}
-	bl character				@imprime el personaje sobre el fondo
-	pop {r0-r12}
-
-
-	mov r7, #1
-	swi 0 
+mainloop:
+	bl background
+	bl character 
+	push {r0}
+	bl wait
+	pop {r0}
+	bl character2
+	push {r0}
+	bl wait
+	pop {r0}
+b mainloop
+wait:
+	ldr r0, =bign	 @ big number
+	ldr r0, [r0]
+	sleepLoop:
+	subs r0,#1
+	bne sleepLoop @ loop delay
+	mov pc,lr 
 
 .data
-.align 2
-
-.global pixelAddr, origenX, origenY, ancho, altura
-
-xRes: 							@Resolucion en X
+.global pixelAddr,origenX,origenY
+pixelAddr:
 	.word 0
-yRes: 							@Resolucion en Y
-	.word 0 
-pixelAddr: 						@Direccion de la pantalla
-	.word 0 
-
-origenX: 						@Sera el punto de origen, en X, para pintar la imagen
-	.word 0
-origenY: 						@Sera el punto de origen, en Y, para pintar la imagen
-	.word 0 
-ancho: 
-	.word 0 
-altura: 
-	.word 0 
+bign: .word 0xfffffff
