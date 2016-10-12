@@ -88,32 +88,12 @@ pop {pc}
 character: 
 	push {lr} 
 	
-<<<<<<< HEAD
 	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
 	ldr r7,=gallinaSprite1Width 			@Asignar valor al comparador de Y
 	ldr r7,[r7]
 	ldr r8,=gallinaSprite1Height
 	ldr r8,[r8]
 	mov r2,#0
-=======
-	mov r6,#0 						@Contador que cuenta la cantidad de bytes dibujados
-
-	ldr r7,=ancho					@Asignar valor al comparador de X	
-	ldr r7,[r7]
-	ldr r9, =origenX 				@Con la diferencia de tener un origen inicial donde colocarlo
-	ldr r9, [r9]
-	add r7, r9
-
-	ldr r8,=altura 					@Asignar valor al comparador de Y
-	ldr r8,[r8]	
-	ldr r10, =origenY 				@Con diferencia de tener un origen inicial donde colocarlo
-	ldr r10, [r10]
-	add r8, r10
-
-	ldr r2,=origenY
-	ldr r2, [r2]
-
->>>>>>> 24c9466b3646a53bdd56955bbace90a80c23ec26
 	filas:
 		mov r1,#0
 		dibujaPixel:
@@ -128,12 +108,7 @@ character:
 			cmp r3,#39
 			blne pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
 			pop {r0-r12}
-<<<<<<< HEAD
 			add r6,#1 		@Incrementamos los bytes dibujados
-=======
-		resolucion: 	
-			add r6,#1 				@Incrementamos los bytes dibujados
->>>>>>> 24c9466b3646a53bdd56955bbace90a80c23ec26
 			add r1,#1 				@Aumenta el contador del ancho de la imagen
 		
 			b dibujaPixel
@@ -204,8 +179,61 @@ character2:
 	pop {pc}
 
 
+@ ****************************************************************************
+@	character
+@	Subrutina que imprime una imagen segun coordenadas, ancho y largo de la misma
+@	Parametros (en memoria):
+@  	xRes: resolucion en X de la pantalla
+@  	YRes: resolucion en Y de la pantalla
+@  	fondo: matriz de colores del fondo a pintar
+@ *****************************************************************************
+@ 	Asignaciones: 
+@	r1 - comparador de x
+@	r2 - comparador de y
+@	r3 - matriz de colores
+@   r4 - addrPixel 
+@	r5 - direccion de la matriz
+@	r6 - contador de bytes
+@	r7 - ancho
+@ 	r8 - alto
+@*******************************************************************************
+.global welcomeImg
+welcomeImg: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=welcomeWidth			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=welcomeHeight 
+	ldr r8,[r8]
+	mov r2,#0
+	filas3:
+		mov r1,#0
+		dibujaPixel3:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm2
+			ldr r5,=welcome
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			cmp r3,#39
+			blne pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel3
+	finIm3:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas3
 
-
+	pop {pc}
 
 
 
