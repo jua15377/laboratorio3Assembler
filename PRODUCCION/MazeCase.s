@@ -21,6 +21,7 @@ mainloop:
 	push {r0}
 	bl wait
 	pop {r0}
+	bl background
 	bl character2
 	push {r0}
 	bl wait
