@@ -20,6 +20,8 @@
 main:
 
 @@--------------------INICIANDO DIRECCIONES Y POSICIONES----------------------*/
+	ldr r0, =xRes
+	ldr r1, =yRes
 	bl getScreenAddr 			@Se obtiene la direccion de la pantalla 
 	ldr r1,=pixelAddr
 	str r0,[r1]
@@ -75,8 +77,19 @@ welcomeLoop:
 	bleq GameOverLoop
 b welcomeLoop
 
+	@Posicionando inicialmente al personaje
+	ldr r0, =20
+	ldr r1, =origenX
+	ldr r0, [r1]
+
+	ldr r0, =20
+	ldr r1, =origenY
+	str r0, [r1]
+
 levelOneLoop:
 	bl background1
+
+
 	bl character
 
 	@revisar boton arriba
@@ -183,10 +196,12 @@ wait:
 	mov pc,lr 
 
 .data
-.global pixelAddr,origenX,origenY
+.global pixelAddr,origenX,origenY, xRes, yRes
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
 	origenY: .word 0
 	origenX: .word 0
+	xRes: .word 0 
+	yRes: .word 0
 .global myloc
 	myloc: .word 0
