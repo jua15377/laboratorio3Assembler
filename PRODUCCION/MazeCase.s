@@ -55,16 +55,19 @@ welcomeLoop:
 	bl GetGpio
 	cmp r0,#1
 	bleq levelOneLoop
+	
 	@revisar boton derecha
 	mov r0,#19
 	bl GetGpio
 	cmp r0,#1
 	bleq levelTwoLoop
+	
 	@revisar boton izquierda
 	mov r0,#13
 	bl GetGpio
 	cmp r0,#1
 	bleq levelThreeLoop
+	
 	@revisar boton abajo
 	mov r0,#6
 	bl GetGpio
@@ -74,7 +77,59 @@ b welcomeLoop
 
 levelOneLoop:
 	bl background1
-	bl character 
+	bl character
+
+	@revisar boton arriba
+	mov r0,#26
+	bl GetGpio
+	
+	cmp r0,#1
+	ldreq r0, =origenY
+	ldreq r0, [r0]
+
+	
+	cmp r0, #0
+	ldrne r1, =origenY
+	subne r0, #1
+	strne r0, [r1]
+
+	
+	@revisar boton derecha
+	mov r0,#19
+	bl GetGpio
+	cmp r0,#1
+	ldreq r0, =origenX
+	ldreq r0, [r0]
+	
+	cmp r0, #0
+	ldrne r1, =origenX
+	addne r0, #1
+	strne r0, [r1]
+	
+	@revisar boton izquierda
+	mov r0,#13
+	bl GetGpio
+	cmp r0,#1
+	ldreq r0, =origenX
+	ldreq r0, [r0]
+	
+	cmp r0, #0
+	ldrne r1, =origenX
+	subne r0, #1
+	strne r0, [r1]
+	
+	@revisar boton abajo
+	mov r0,#6
+	bl GetGpio
+	cmp r0,#1
+	ldreq r0, =origenY
+	ldreq r0, [r0]
+	
+	cmp r0, #0
+	ldrne r1, =origenY
+	addne r0, #1
+	strne r0, [r1]
+
 	push {r0}
 	bl wait
 	pop {r0}
@@ -131,5 +186,7 @@ wait:
 .global pixelAddr,origenX,origenY
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
+	origenY: .word 0
+	origenX: .word 0
 .global myloc
 	myloc: .word 0
