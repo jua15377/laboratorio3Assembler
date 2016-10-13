@@ -91,11 +91,23 @@ character:
 	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
 	ldr r7,=gallinaSprite1Width 			@Asignar valor al comparador de Y
 	ldr r7,[r7]
+	ldr r9, =origenX
+	ldr, r9,[r9]
+	add r7, r9, r9 
+
 	ldr r8,=gallinaSprite1Height
-	ldr r8,[r8]
-	mov r2,#0
+	ldr r8,[r8]	
+	ldr r10, =origenY
+	ldr, r10,[r10]
+	add r8, r10, r10
+
+	ldr r2, =origenY
+	ldr r2, [r2]
+
 	filas:
-		mov r1,#0
+		ldr r1, =origenX
+		ldr r1, [r1]
+
 		dibujaPixel:
 			cmp r1,r7				@comparar x con el ancho de la imagen
 			bge finIm
@@ -147,11 +159,24 @@ character2:
 	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
 	ldr r7,=gallinaSprite2Width 			@Asignar valor al comparador de Y
 	ldr r7,[r7]
+	ldr r9, =origenX
+	ldr, r9,[r9]
+	add r7, r9, r9 
+
+
 	ldr r8,=gallinaSprite2Height
 	ldr r8,[r8]
-	mov r2,#0
+	ldr r10, =origenY
+	ldr, r10,[r10]
+	add r8, r10, r10
+
+	ldr r2, =origenY
+	ldr r2, [r2]
+
 	filas2:
-		mov r1,#0
+		ldr r1, =origenX
+		ldr r1, [r1]
+
 		dibujaPixel2:
 			cmp r1,r7				@comparar x con el ancho de la imagen
 			bge finIm2
