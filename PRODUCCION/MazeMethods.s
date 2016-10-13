@@ -6,15 +6,15 @@
 @*   Taller de Assembler, Seccio: 30
 @*******************************************************************************/
 @ ******************************************************************
-@	background
+@	background1
 @	Subrutina que imprime en pantalla el fondo que se desea colocar
 @	Parametros (en memoria):
 @  	xRes: resolucion en X de la pantalla
 @  	YRes: resolucion en Y de la pantalla
 @  	fondo: matriz de colores del fondo a pintar
 @ ******************************************************************
-.global background
-background: 
+.global background1
+background1: 
 	push {lr}
 		x	  .req r1
 		y         .req r2
@@ -180,46 +180,30 @@ character2:
 
 
 @ ****************************************************************************
-@	character
-@	Subrutina que imprime una imagen segun coordenadas, ancho y largo de la misma
-@	Parametros (en memoria):
-@  	xRes: resolucion en X de la pantalla
-@  	YRes: resolucion en Y de la pantalla
-@  	fondo: matriz de colores del fondo a pintar
-@ *****************************************************************************
-@ 	Asignaciones: 
-@	r1 - comparador de x
-@	r2 - comparador de y
-@	r3 - matriz de colores
-@   r4 - addrPixel 
-@	r5 - direccion de la matriz
-@	r6 - contador de bytes
-@	r7 - ancho
-@ 	r8 - alto
+@	intro
 @*******************************************************************************
 .global welcomeImg
 welcomeImg: 
 	push {lr} 
 	
 	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
-	ldr r7,=welcomeWidth			@Asignar valor al comparador de Y
+	ldr r7,=introWidth			@Asignar valor al comparador de Y
 	ldr r7,[r7]
-	ldr r8,=welcomeHeight 
+	ldr r8,=introHeight 
 	ldr r8,[r8]
 	mov r2,#0
 	filas3:
 		mov r1,#0
 		dibujaPixel3:
 			cmp r1,r7				@comparar x con el ancho de la imagen
-			bge finIm2
-			ldr r5,=welcome
+			bge finIm3
+			ldr r5,=intro
 			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
 			
 			ldr r0,=pixelAddr
 			ldr r0,[r0] 
 			push {r0-r12}
-			cmp r3,#39
-			blne pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
 			pop {r0-r12}
 			add r6,#1 		@Incrementamos los bytes dibujados
 			add r1,#1 				@Aumenta el contador del ancho de la imagen
@@ -235,7 +219,122 @@ welcomeImg:
 
 	pop {pc}
 
+@*******************************************************************************
+@ GameOver 
+@*******************************************************************************
+.global GameOverImg
+GameOverImg: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=GameOverWidth			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=GameOverHeight 
+	ldr r8,[r8]
+	mov r2,#0
+	filas4:
+		mov r1,#0
+		dibujaPixel4:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm4
+			ldr r5,=GameOver
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel4
+	finIm4:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas4
 
+	pop {pc}
 
+@*******************************************************************************
+@ background2
+@*******************************************************************************
+.global background2
+background2: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=testlaberintoL2Width			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=testlaberintoL2Height 
+	ldr r8,[r8]
+	mov r2,#0
+	filas5:
+		mov r1,#0
+		dibujaPixel5:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm5
+			ldr r5,=testlaberintoL2
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel5
+	finIm5:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas5
 
+	pop {pc}
 
+@*******************************************************************************
+@ background3
+@*******************************************************************************
+.global background3
+background3: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=testlaberintoL3Width			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=testlaberintoL3Height 
+	ldr r8,[r8]
+	mov r2,#0
+	filas6:
+		mov r1,#0
+		dibujaPixel6:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm6
+			ldr r5,=testlaberintoL3
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel6
+	finIm6:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas6
+
+	pop {pc}
