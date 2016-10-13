@@ -199,8 +199,8 @@ wait:
 .global pixelAddr,origenX,origenY, xRes, yRes
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
-	origenY: .word 20
-	origenX: .word 20
+	origenY: .word 0
+	origenX: .word 0
 	xRes: .word 0 
 	yRes: .word 0
 .global myloc
