@@ -118,6 +118,10 @@ b levelOneLoop
 
 aumentoEnX:
 	push {lr}
+	ldr r1,=origenX
+	ldr	r1,[r1]
+	ldr r2,=origenY
+	ldr r2,[r2]
 	bl L1O1
 	ldr r0,=origenX
 	ldr r1,[r0]
@@ -132,7 +136,12 @@ pop {pc}
 
 aumentoEnY:
 	push {lr}
+	ldr r1,=origenX
+	ldr	r1,[r1]
+	ldr r2,=origenY
+	ldr r2,[r2]
 	bl L1O1
+
 	ldr r0,=origenY
 	ldr r1,[r0]
 	ldr r2,=topeEnY
