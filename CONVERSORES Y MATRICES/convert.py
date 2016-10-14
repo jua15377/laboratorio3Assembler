@@ -8,8 +8,8 @@ def rbg323(r,g,b):
 
 
 
-name = 'intro'
-path_imagen = 'intro.jpg'
+name = 'maiz'
+path_imagen = 'Maiz1.png'
 
 img = Image.open(path_imagen)
 matriz = img.load()
