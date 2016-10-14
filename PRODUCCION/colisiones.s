@@ -29,13 +29,13 @@ L1O1:
 		beq gameOver 		@ si son iguales, game over
 		
 		add r3, #20
-		cmp r3, #251
+		cmp r3, #240
 		bge Isderecha1		@si ya se acabo la frontera, pasa a la siguente
 
 		b superior1 		@Si no se ha acabado la frontera superior,
 								@ sigue comparando 
 
-	Isderecha1:  			@Comparara para el lado derecho, no sin antes
+Isderecha1:  				@Comparara para el lado derecho, no sin antes
 							@definir los valores iniciales de comparacion
 
 	mov r3, #240 			@En X es 251
@@ -50,7 +50,7 @@ L1O1:
 		beq gameOver 		@si en alguna caza, gameOver
 
 		add r4, #20
-		ldr r5, =520	@si no, se agrega uno al contador
+		mov r5, #600	@si no, se agrega uno al contador
 		
 		
 		cmp r4, r5 			@se compara con el limite
@@ -61,7 +61,7 @@ L1O1:
 	Isabajo1: 				@Lo mismo pero para la fronterra de abao
 
 	mov r3, #260 			@Valor inicial de X 251,
-	ldr r4, =560		@Valor incial de comparacion de Y , 520
+	mov r4, #600		@Valor incial de comparacion de Y , 520
 
 
 	cmp r2, r4 				@Compara si se encuentra a la altura
@@ -74,7 +74,7 @@ L1O1:
 		cmp r3, #0 			@y chequea si ya llego al limite
 		ble end1 			@Si ya lo alcanzo, termina de comparar
 
-		b abajo1 			@en caso contrario, sigue comparando
+	b abajo1 			@en caso contrario, sigue comparando
 
 
 
@@ -84,7 +84,7 @@ gameOver:  					@Subrutina que lanzara la imagen de gameOver
 
 end1:  						@final del objeto 1
 
-	pop {lr}
+	pop {pc}
 
 
 /******************************************************************************
@@ -101,7 +101,7 @@ end1:  						@final del objeto 1
 L1O2: 
 	push {lr}
 
-	mov r3, #340
+	mov r3, #360
 	mov r4, #0
 
 	cmp r1, r3
@@ -119,8 +119,8 @@ L1O2:
 
 	Isabajo2: 
 
-	mov r3, #440
-	mov r4, #440
+	mov r3, #360
+	mov r4, #420
 
 	cmp r2, r4
 	bne Isderecha2
@@ -130,7 +130,7 @@ L1O2:
 		beq gameOver2
 
 		add r3, #20 
-		ldr r5, =500
+		mov r5, #500
 
 		cmp r3, r5
 		bge Isderecha2
@@ -139,8 +139,7 @@ L1O2:
 	
 	Isderecha2: 
 
-	ldr r3, =500
-	ldr r3, [r3]
+	mov r3, #480
 	mov r4, #440
 
 	cmp r1, r3
@@ -151,7 +150,7 @@ L1O2:
 		beq gameOver2
 
 		sub r4, #20
-		cmo r4, #0
+		cmp r4, #0
 		ble end2
 
 		b derecha2
@@ -179,6 +178,6 @@ end2:  						@final del objeto 1
 L1O3: 
 	push {lr}
 
-	pop {lr}
+	pop {pc}
 
 

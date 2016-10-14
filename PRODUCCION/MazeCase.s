@@ -85,7 +85,11 @@ levelOneLoop:
 	ldr r2,=origenY
 	ldr r2,[r2]
 	bl L1O1
-
+	ldr r1,=origenX
+	ldr	r1,[r1]
+	ldr r2,=origenY
+	ldr r2,[r2]
+	bl L1O2
 
 	bl background1
 	bl character
