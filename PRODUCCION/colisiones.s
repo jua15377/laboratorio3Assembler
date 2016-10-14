@@ -178,6 +178,109 @@ end2:  						@final del objeto 1
 L1O3: 
 	push {lr}
 
+	mov r3, #560
+	mov r4, #0
+
+	cmp r1, r3
+	bne Isabajo3
+
+	izquierda3: 
+		cmp r2, r4
+		beq gameOver3
+
+		add r4, #20
+		mov r5, #520
+		
+
+		cmp r4, r5
+		bge Isabajo3
+
+		b izquierda3
+
+	Isabajo3: 
+
+	mov r3, #560
+	mov r4, #540
+	
+	cmp r2, r4
+	bne Isderecha3
+
+	abajo3: 
+		cmp r1, r3
+		beq gameOver3
+
+		add r3, #20
+		mov r5, #820
+
+		cmp r3, r5
+		bge Isderecha3
+
+		b abajo3
+
+	Isderecha3: 
+
+	mov r3, #820
+	mov r4, #520
+
+	cmp r1, r3
+	bne Isarriba1
+
+	derecha3: 
+		cmp r2, r4
+		beq gameOver3
+
+		sub r4, #20
+		mov r5, #440
+
+		cmp r4, r5
+		ble Isarriba1
+
+		b derecha3
+
+	Isarriba1: 
+
+	mov r3, #820
+	mov r4, #440
+
+	cmp r2, r4
+	bne Isderecha4
+
+	arriba1: 
+		cmp r1, r3
+		beq gameOver3
+
+		sub r3, #20
+		mov r5, #740
+		
+		cmp r3, r5
+		ble Isderecha4
+
+		b arriba1
+
+	Isderecha4: 
+
+	mov r3, #740
+	mov r4, #440
+
+	cmp r1, r3
+	bne end3
+
+	derecha4: 
+		cmp r2, r4
+		beq gameOver3
+
+		sub r4, #20
+		cmp r4, #0
+		ble end3
+
+		b derecha4
+
+gameOver3:  					@Subrutina que lanzara la imagen de gameOver
+					
+	b GameOverLoop	
+
+end3:  						@final del objeto 1
+
 	pop {pc}
 
 
