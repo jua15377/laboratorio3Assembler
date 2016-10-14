@@ -61,7 +61,7 @@ L1O1:
 	Isabajo1: 				@Lo mismo pero para la fronterra de abao
 
 	mov r3, #260 			@Valor inicial de X 251,
-	ldr r4, =540		@Valor incial de comparacion de Y , 520
+	ldr r4, =560		@Valor incial de comparacion de Y , 520
 
 
 	cmp r2, r4 				@Compara si se encuentra a la altura
