@@ -178,7 +178,7 @@ end2:  						@final del objeto 1
 L1O3: 
 	push {lr}
 
-	mov r3, #560
+	mov r3, #580
 	mov r4, #0
 
 	cmp r1, r3
@@ -200,7 +200,7 @@ L1O3:
 	Isabajo3: 
 
 	mov r3, #560
-	mov r4, #540
+	mov r4, #520
 	
 	cmp r2, r4
 	bne Isderecha3
@@ -219,7 +219,7 @@ L1O3:
 
 	Isderecha3: 
 
-	mov r3, #820
+	mov r3, #800
 	mov r4, #520
 
 	cmp r1, r3
@@ -259,7 +259,7 @@ L1O3:
 
 	Isderecha4: 
 
-	mov r3, #740
+	mov r3, #720
 	mov r4, #440
 
 	cmp r1, r3
