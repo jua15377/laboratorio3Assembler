@@ -382,7 +382,7 @@ welcomeImg2:
 	mov r2,#0
 	filas7:
 		mov r1,#0
-		dibujaPixel8:
+		dibujaPixel7:
 			cmp r1,r7				@comparar x con el ancho de la imagen
 			bge finIm7
 			ldr r5,=intro2
@@ -396,14 +396,14 @@ welcomeImg2:
 			add r6,#1 		@Incrementamos los bytes dibujados
 			add r1,#1 				@Aumenta el contador del ancho de la imagen
 		
-			b dibujaPixel8
+			b dibujaPixel7
 	finIm7:	
 		@ aumentamos y
 		add r2,#1
 					
 		@Revisamos si ya dibujamos toda la imagen.
 		teq r2,r8
-		bne filas3
+		bne filas7
 
 	pop {pc}
 
@@ -442,11 +442,11 @@ maizImg:
 	add r8, r10
 
 	mov r2, #100
-	filas7:
+	filas8:
 		
 		mov r1, #860
 
-		dibujaPixel7:
+		dibujaPixel8:
 			
 			ldr r5, =maiz
 			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
@@ -461,15 +461,94 @@ maizImg:
 			add r1,#1 
 
 			cmp r1, r7
-			blt dibujaPixel7			@Aumenta el contador del ancho de la imagen
+			blt dibujaPixel8			@Aumenta el contador del ancho de la imagen
 		
 
-	finIm7:	
+	finIm8:	
 		@ aumentamos y
 		add r2,#1
 					
 		@Revisamos si ya dibujamos toda la imagen.
 		teq r2,r8
-		bne filas7
+		bne filas8	
+
+	pop {pc}
+
+@ ****************************************************************************
+@	winner
+@*******************************************************************************
+.global WinGameImg
+WinGameImg: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=ganadorWidth			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=ganadorHeight 
+	ldr r8,[r8]
+	mov r2,#0
+	filas9:
+		mov r1,#0
+		dibujaPixel9:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm9
+			ldr r5,=ganador
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel9
+	finIm9:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas9
+
+	pop {pc}
+@ ****************************************************************************
+@	intructions
+@*******************************************************************************
+.global instructionsImg
+instructionsImg: 
+	push {lr} 
+	
+	mov r6,#0 				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=intruccionesWidth			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	ldr r8,=intruccionesHeight 
+	ldr r8,[r8]
+	mov r2,#0
+	filas10:
+		mov r1,#0
+		dibujaPixel10:
+			cmp r1,r7				@comparar x con el ancho de la imagen
+			bge finIm10
+			ldr r5,=intrucciones
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			bl pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 				@Aumenta el contador del ancho de la imagen
+		
+			b dibujaPixel10
+	finIm10:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas10
 
 	pop {pc}

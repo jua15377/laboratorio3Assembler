@@ -5,7 +5,7 @@
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
 *******************************************************************************/
-@@compliar con: gcc -o main MazeCase.s ganador.s intrucciones.s MazeMethods.s intro.s GameOver.s maiz.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s colisiones.s
+@@compliar con: gcc -o main MazeCase.s intro2.s ganador.s intrucciones.s MazeMethods.s intro.s GameOver.s maiz.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s colisiones.s
  
 @PUERTOS DE GPIO
 @@-----ENTRADA-----
@@ -52,8 +52,22 @@ main:
 /*-------------------------------------INICIA LOOPS INTRODUCTORIOS AL JUEGO----------------------------*/
 welcomeLoop: 										@El loop que se mantiene en la pagina de inicio hasta que un boton es presionado
 	bl welcomeImg 									
-	bl wait 										
+	bl SuperWait 										
 	bl welcomeImg2 									
+	bl SuperWait 									@Revisa el primero de los botones, se dirige al nivel uno si es presionado
+	
+	@revisar boton arriba
+	mov r0,#26
+	bl GetGpio
+	cmp r0,#1
+	beq instructionsLoop
+	
+b welcomeLoop 										@Se repite mientras ninguno es presionado
+
+instructionsLoop: 										@El loop que se mantiene en la pagina de inicio hasta que un boton es presionado
+	bl instructionsImg 									
+	bl wait 										
+	bl instructionsImg 									
 
 	bl SuperWait 									@Revisa el primero de los botones, se dirige al nivel uno si es presionado
 	@revisar boton arriba
@@ -62,24 +76,7 @@ welcomeLoop: 										@El loop que se mantiene en la pagina de inicio hasta que
 	cmp r0,#1
 	beq levelOneLoop
 	
-	@revisar boton derecha 							@Revisa el segundo de los botones, se dirige al nivel uno si es presionado
-	mov r0,#19
-	bl GetGpio
-	cmp r0,#1
-	beq levelTwoLoop
-	
-	@revisar boton izquierda						@Revisa el tercero de los botones, se dirige al nivel uno si es presionado
-	mov r0,#13
-	bl GetGpio
-	cmp r0,#1
-	beq levelThreeLoop
-	
-	@revisar boton abajo 							@Revisa el cuarto de los botones, se dirige al nivel uno si es presionado
-	mov r0,#6
-	bl GetGpio
-	cmp r0,#1
-	beq GameOverLoop
-b welcomeLoop 										@Se repite mientras ninguno es presionado
+b instructionsLoop 	
 
 levelOneLoop: 										@comienza el nivel 1 del juego
 
@@ -231,28 +228,28 @@ GameOverLoop:
 b GameOverLoop
 
 
-@.global winnersLoop 								@Subrutina para mostrar que el jugador gano
-@winnersLoop:
-@	ldr r0,=origenX
-@	ldr r1,[r0]
-@	mov r1,#0
-@	str r1,[r0]
-@
-@	ldr r0,=origenY
-@	ldr r1,[r0]
-@	mov r1,#0
-@	str r1,[r0]
-@
-@	bl WinGameImg
-@	bl SuperWait
-@	
-@	@revisar boton abajo
-@	mov r0,#6
-@	bl GetGpio
-@	cmp r0,#1
-@	beq welcomeLoop
-@
-@b GameOverLoop
+.global winnersLoop 								@Subrutina para mostrar que el jugador gano
+winnersLoop:
+	ldr r0,=origenX
+	ldr r1,[r0]
+	mov r1,#0
+	str r1,[r0]
+
+	ldr r0,=origenY
+	ldr r1,[r0]
+	mov r1,#0
+	str r1,[r0]
+
+	bl WinGameImg
+	bl SuperWait
+	
+	@revisar boton abajo
+	mov r0,#6
+	bl GetGpio
+	cmp r0,#1
+	beq welcomeLoop
+
+b winnersLoop
 
 
 wait: 												@Subrutina de delay
