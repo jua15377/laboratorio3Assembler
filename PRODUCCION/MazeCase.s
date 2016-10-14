@@ -91,12 +91,14 @@ levelOneLoop:
 
 	bl background1
 	bl character
+	bl maiz
 	push {r0}
 	bl wait
 	bl wait
 	pop {r0}
 	bl background1
 	bl character2
+	bl maiz
 	push {r0}
 	bl wait
 	bl wait
