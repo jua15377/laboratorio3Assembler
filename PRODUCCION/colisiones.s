@@ -283,4 +283,165 @@ end3:  						@final del objeto 1
 
 	pop {pc}
 
+/******************************************************************************
+*	L1O4
+*	Cuarto obstaculo del laberinto 1
+*	Por: Diego Castaneda, Carnet: 15151
+*   	 Jonnathan Juares, Carnet: 15377
+*   Taller de Assembler, Seccio: 30
+*	Parametros: 
+*		r1: posicion del pollo en x
+*		r2: posicion del pollo en y
+*******************************************************************************/
+.global L1O4
+L1O4: 
+	push {lr}
+
+	mov r3, #680
+	mov r4, #780
+
+	cmp r1, r3
+	bne Isarriba2
+
+	izquierda4: 
+		cmp r2, r4
+		beq gameOver4
+
+		sub r4, #20
+		mov r5, #680
+
+		cmp r4, r5
+		ble Isarriba2
+
+		b izquierda4
+
+	Isarriba2: 
+
+	mov r3, #680
+	mov r4, #680
+
+	cmp r2, r4 
+	bne Isderecha5
+
+	arriba2: 
+		cmp r1, r3
+		beq gameOver4
+
+		add r3, #20
+		mov r5, #840
+
+		cmp r3, r5
+		bge Isderecha5
+
+		b arriba2
+
+	Isderecha5:
+
+	mov r3, #840
+	mov r4, #680
+
+	cmp r1, r3
+	bne end4
+
+	derecha5: 
+		cmp r2, r4
+		beq gameOver4
+
+		add r4, #20
+		mov r5, #780
+
+		cmp r4, r5
+		bge end4
+
+		b derecha5
+
+
+gameOver4:  					@Subrutina que lanzara la imagen de gameOver
+					
+	b GameOverLoop	
+
+end4:  							@final del objeto 4
+
+	pop {pc}
+
+
+/******************************************************************************
+*	L1O5
+*	Quinto obstaculo del laberinto 1
+*	Por: Diego Castaneda, Carnet: 15151
+*   	 Jonnathan Juares, Carnet: 15377
+*   Taller de Assembler, Seccio: 30
+*	Parametros: 
+*		r1: posicion del pollo en x
+*		r2: posicion del pollo en y
+*******************************************************************************/
+.global L1O5
+L1O5: 
+	push {lr}
+
+	mov r3, #1020
+	mov r4, #440
+
+	cmp r1, r3
+	bne Isarriba3
+
+	izquierda5: 
+		cmp r2, r4
+		beq gameOver5
+
+		add r4, #20 
+		mov r5, #540
+
+		cmp r4, r5
+		bge Isarriba3
+
+		b izquierda5
+
+	Isarriba3: 
+
+	mov r3, #1020
+	mov r4, #440
+
+	cmp r2, r4
+	bne Isabajo4
+
+	arriba3: 
+		cmp r1, r3
+		beq gameOver5
+
+		add r3, #20
+		mov r5, #1100
+
+		cmp r3, r5
+		bge Isabajo4
+
+		b arriba3
+
+	Isabajo4: 
+
+	mov r3, #1020
+	mov r4, #540
+
+	cmp r2, r4
+	bne end5
+
+	abajo4: 
+		cmp r1, r3
+		beq gameOver5
+
+		add r3, #20 
+		mov r5, #1100
+
+		cmp r3, r5
+		bge end5
+
+
+gameOver5:  					@Subrutina que lanzara la imagen de gameOver
+					
+	b GameOverLoop	
+
+end5:  							@final del objeto 4
+
+	pop {pc}
+
 
