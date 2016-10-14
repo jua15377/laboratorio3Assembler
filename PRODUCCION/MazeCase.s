@@ -27,7 +27,7 @@ main:
 	str r0,[r1]
 
 
-@utilizando la biblioteca GPIO (gpio0_2.s)
+@utilizando la biblioteca GPIO (gpio0_2.s)  		
 	bl GetGpioAddress @solo se llama una vez
 	
 	@GPIO para lectura puerto 6 
@@ -49,50 +49,50 @@ main:
 	mov r0,#26
 	mov r1,#0
 	bl SetGpioFunction
-	
-welcomeLoop:
-	bl welcomeImg
-	bl wait
-	bl welcomeImg2
+/*-------------------------------------INICIA LOOPS INTRODUCTORIOS AL JUEGO----------------------------*/
+welcomeLoop: 										@El loop que se mantiene en la pagina de inicio hasta que un boton es presionado
+	bl welcomeImg 									
+	bl wait 										
+	bl welcomeImg2 									
 
-	bl SuperWait
+	bl SuperWait 									@Revisa el primero de los botones, se dirige al nivel uno si es presionado
 	@revisar boton arriba
 	mov r0,#26
 	bl GetGpio
 	cmp r0,#1
 	beq levelOneLoop
 	
-	@revisar boton derecha
+	@revisar boton derecha 							@Revisa el segundo de los botones, se dirige al nivel uno si es presionado
 	mov r0,#19
 	bl GetGpio
 	cmp r0,#1
 	beq levelTwoLoop
 	
-	@revisar boton izquierda
+	@revisar boton izquierda						@Revisa el tercero de los botones, se dirige al nivel uno si es presionado
 	mov r0,#13
 	bl GetGpio
 	cmp r0,#1
 	beq levelThreeLoop
 	
-	@revisar boton abajo
+	@revisar boton abajo 							@Revisa el cuarto de los botones, se dirige al nivel uno si es presionado
 	mov r0,#6
 	bl GetGpio
 	cmp r0,#1
 	beq GameOverLoop
-b welcomeLoop
+b welcomeLoop 										@Se repite mientras ninguno es presionado
 
-levelOneLoop:
+levelOneLoop: 										@comienza el nivel 1 del juego
 
 	ldr r1,=origenX
 	ldr	r1,[r1]
 	ldr r2,=origenY
 	ldr r2,[r2]
-	@colisiones
+	@colisiones 									@Realiza las colisiones del juego, si se hacen necesarias
 	bl L1O1
 	bl L1O2
 	bl L1O3
 
-	bl background1
+	bl background1 									@Imprime la gallina, el fondo y el maiz, segun el orden de posicion
 	bl character
 	bl maizImg
 	push {r0}
@@ -107,7 +107,7 @@ levelOneLoop:
 	bl wait
 	pop {r0}
 
-	@revisar boton arriba
+	@revisar boton arriba 							@Toma acciones, la gallina, dependiendo de que boton se presiono
 	mov r0,#26
 	bl GetGpio
 	cmp r0,#1
@@ -130,9 +130,9 @@ levelOneLoop:
 	bl GetGpio
 	cmp r0,#1
 	bleq aumentoEnY
-b levelOneLoop
+b levelOneLoop 										@Si no se cumplen los argumentos, el jugador se queda en el loop del nivel 1
 
-aumentoEnX:
+aumentoEnX: 										@Subrutina para mover la gallina a la derecha
 	push {lr}
 	ldr r0,=origenX
 	ldr r1,[r0]
@@ -145,7 +145,7 @@ aumentoEnX:
 EndaumentoEnX:
 pop {pc}
 
-aumentoEnY:
+aumentoEnY: 										@Subrutina para mover la gallina hacia arriba
 	push {lr}
 	ldr r0,=origenY
 	ldr r1,[r0]
@@ -158,7 +158,7 @@ aumentoEnY:
 EndaumentoEnY:
 pop {pc}
 
-decrementoEnX:
+decrementoEnX: 										@Subrutina para mover la gallina a la izquierda
 	push {lr}
 	ldr r0,=origenX
 	ldr r1,[r0]
@@ -169,7 +169,7 @@ decrementoEnX:
 EnddecrementoEnX:
 pop {pc}
 
-decrementoEnY:
+decrementoEnY: 										@Subrutina para mover la gallina hacia abajo
 	push {lr}
 	ldr r0,=origenY
 	ldr r1,[r0]
@@ -181,7 +181,7 @@ pop {pc}
 
 
 
-levelTwoLoop:
+levelTwoLoop: 										@Loop del nivel 2
 	bl background2
 	bl character 
 	push {r0}
@@ -194,7 +194,7 @@ levelTwoLoop:
 	pop {r0}
 b levelTwoLoop
 
-levelThreeLoop:
+levelThreeLoop:										@Loop del nivel tres
 	bl background3
 	bl character 
 	push {r0}
@@ -207,7 +207,7 @@ levelThreeLoop:
 	pop {r0}
 b levelThreeLoop
 
-.global GameOverLoop
+.global GameOverLoop  								@Loop si se cumplen las condiciones de haber perdido
 GameOverLoop:
 	ldr r0,=origenX
 	ldr r1,[r0]
@@ -231,7 +231,7 @@ GameOverLoop:
 b GameOverLoop
 
 
-@.global winnersLoop
+@.global winnersLoop 								@Subrutina para mostrar que el jugador gano
 @winnersLoop:
 @	ldr r0,=origenX
 @	ldr r1,[r0]
@@ -255,7 +255,7 @@ b GameOverLoop
 @b GameOverLoop
 
 
-wait:
+wait: 												@Subrutina de delay
 	ldr r0, =bign	 @ big number
 	ldr r0, [r0]
 	sleepLoop:
@@ -263,7 +263,7 @@ wait:
 	bne sleepLoop @ loop delay
 	mov pc,lr 
 
-SuperWait:
+SuperWait: 											@Delay hecho con delays
 	push {lr}
 	bl wait
 	bl wait
@@ -274,8 +274,8 @@ SuperWait:
 	bl wait
 	bl wait
 pop {pc}
-
-.data
+  
+.data 												@variables globales a utilizar
 .global pixelAddr,origenX,origenY,milCien
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
