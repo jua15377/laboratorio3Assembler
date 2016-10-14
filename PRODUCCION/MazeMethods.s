@@ -365,3 +365,70 @@ background3:
 		bne filas6
 
 	pop {pc}
+
+@ ****************************************************************************
+@	maiz
+@	Subrutina que imprime una imagen segun coordenadas, ancho y largo de la misma
+@	Parametros (en memoria):
+@  	xRes: resolucion en X de la pantalla
+@  	YRes: resolucion en Y de la pantalla
+@  	fondo: matriz de colores del fondo a pintar
+@ *****************************************************************************
+@ 	Asignaciones: 
+@	r1 - comparador de x
+@	r2 - comparador de y
+@	r3 - matriz de colores
+@   r4 - addrPixel 
+@	r5 - direccion de la matriz
+@	r6 - contador de bytes
+@	r7 - ancho
+@ 	r8 - alto
+@*******************************************************************************
+.global maiz
+maiz: 
+	push {lr} 
+	
+	mov r6,#0 	
+
+	mov r9, #860				@Contador que cuenta la cantidad de bytes dibujados
+	ldr r7,=maizWidth 			@Asignar valor al comparador de Y
+	ldr r7,[r7]
+	add r7, r9
+
+	mov r10, #100
+	ldr r8,=maizHeight
+	ldr r8,[r8]
+	add r8, r10
+
+	mov r2, #100
+	filas:
+		
+		mov r1, #860
+
+		dibujaPixel:
+			
+			ldr r5,=maiz
+			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
+			
+			ldr r0,=pixelAddr
+			ldr r0,[r0] 
+			push {r0-r12}
+			cmp r3,#39
+			blne pixel				@Dibujamos el pixel. r1=x,r2=y,r3=colour
+			pop {r0-r12}
+			add r6,#1 		@Incrementamos los bytes dibujados
+			add r1,#1 
+
+			cmp r1, r7
+			blt dibujaPixel				@Aumenta el contador del ancho de la imagen
+		
+
+	finIm:	
+		@ aumentamos y
+		add r2,#1
+					
+		@Revisamos si ya dibujamos toda la imagen.
+		teq r2,r8
+		bne filas
+
+	pop {pc}
