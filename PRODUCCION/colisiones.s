@@ -37,10 +37,8 @@ L1O1:
 
 
 gameOver:  					@Subrutina que lanzara la imagen de gameOver
-	
-	push {lr} 				
-	bl GameOverImg			
-	pop {lr}
+					
+	bl GameOverLoop	
 
 end1:  						@final del objeto 1
 

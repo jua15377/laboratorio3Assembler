@@ -78,6 +78,14 @@ welcomeLoop:
 b welcomeLoop
 
 levelOneLoop:
+
+	ldr r1,=origenX
+	ldr	r1,[r1]
+	ldr r2,=origenY
+	ldr r2,[r2]
+	bl L1O1
+
+
 	bl background1
 	bl character
 	push {r0}
@@ -118,11 +126,6 @@ b levelOneLoop
 
 aumentoEnX:
 	push {lr}
-	ldr r1,=origenX
-	ldr	r1,[r1]
-	ldr r2,=origenY
-	ldr r2,[r2]
-	bl L1O1
 	ldr r0,=origenX
 	ldr r1,[r0]
 	ldr r2,=topeEnX
@@ -136,19 +139,13 @@ pop {pc}
 
 aumentoEnY:
 	push {lr}
-	ldr r1,=origenX
-	ldr	r1,[r1]
-	ldr r2,=origenY
-	ldr r2,[r2]
-	bl L1O1
-
 	ldr r0,=origenY
 	ldr r1,[r0]
 	ldr r2,=topeEnY
 	ldr r2,[r2]
 	cmp r1,r2
 	beq EndaumentoEnY
-	add r1,#20
+	add r1,#1
 	str r1,[r0]
 EndaumentoEnY:
 pop {pc}
@@ -202,11 +199,37 @@ levelThreeLoop:
 	pop {r0}
 b levelThreeLoop
 
+.global GameOverLoop
 GameOverLoop:
 	bl GameOverImg
 	push {r0}
 	bl wait
 	pop {r0}
+
+	@revisar boton arriba
+	mov r0,#26
+	bl GetGpio
+	cmp r0,#1
+	bleq welcomeLoop
+	
+	@revisar boton derecha
+	mov r0,#19
+	bl GetGpio
+	cmp r0,#1
+	bleq welcomeLoop
+	
+	@revisar boton izquierda
+	mov r0,#13
+	bl GetGpio
+	cmp r0,#1
+	bleq welcomeLoop
+	
+	@revisar boton abajo
+	mov r0,#6
+	bl GetGpio
+	cmp r0,#1
+	bleq welcomeLoop
+	
 b GameOverLoop
 
 
