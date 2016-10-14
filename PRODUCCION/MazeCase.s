@@ -52,6 +52,9 @@ main:
 	
 welcomeLoop:
 	bl welcomeImg
+	bl wait
+	bl welcomeImg2
+
 	bl SuperWait
 	@revisar boton arriba
 	mov r0,#26
