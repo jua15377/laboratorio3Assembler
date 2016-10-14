@@ -444,4 +444,19 @@ end5:  							@final del objeto 4
 
 	pop {pc}
 
+/******************************************************************************
+*	L1M1
+*	Maiz del laberinto 1
+*	Por: Diego Castaneda, Carnet: 15151
+*   	 Jonnathan Juares, Carnet: 15377
+*   Taller de Assembler, Seccio: 30
+*	Parametros: 
+*		r1: posicion del pollo en x
+*		r2: posicion del pollo en y
+*******************************************************************************/
+.global L1M1
+L1M1: 
+	push {lr}
+
+	pop {pc}
 

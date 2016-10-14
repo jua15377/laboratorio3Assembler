@@ -228,6 +228,30 @@ GameOverLoop:
 b GameOverLoop
 
 
+@.global winnersLoop
+@winnersLoop:
+@	ldr r0,=origenX
+@	ldr r1,[r0]
+@	mov r1,#0
+@	str r1,[r0]
+@
+@	ldr r0,=origenY
+@	ldr r1,[r0]
+@	mov r1,#0
+@	str r1,[r0]
+@
+@	bl WinGameImg
+@	bl SuperWait
+@	
+@	@revisar boton abajo
+@	mov r0,#6
+@	bl GetGpio
+@	cmp r0,#1
+@	beq welcomeLoop
+@
+@b GameOverLoop
+
+
 wait:
 	ldr r0, =bign	 @ big number
 	ldr r0, [r0]
