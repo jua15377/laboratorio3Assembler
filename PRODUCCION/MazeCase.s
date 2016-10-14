@@ -20,8 +20,8 @@
 main:
 
 @@--------------------INICIANDO DIRECCIONES Y POSICIONES----------------------*/
-	ldr r0, =xRes
-	ldr r1, =yRes
+	ldr r0,=xRes
+	ldr r1,=yRes
 	bl getScreenAddr 			@Se obtiene la direccion de la pantalla 
 	ldr r1,=pixelAddr
 	str r0,[r1]
@@ -77,71 +77,35 @@ welcomeLoop:
 	bleq GameOverLoop
 b welcomeLoop
 
-	@Posicionando inicialmente al personaje
-	ldr r0, =20
-	ldr r1, =origenX
-	ldr r0, [r1]
-
-	ldr r0, =20
-	ldr r1, =origenY
-	str r0, [r1]
-
 levelOneLoop:
 	bl background1
-
-
 	bl character
 
 	@revisar boton arriba
 	mov r0,#26
 	bl GetGpio
-	
 	cmp r0,#1
-	ldreq r0, =origenY
-	ldreq r0, [r0]
-
-	
-	cmp r0, #0
-	ldrne r1, =origenY
-	subne r0, #1
-	strne r0, [r1]
-
+	bleq decrementoEnY
 	
 	@revisar boton derecha
 	mov r0,#19
 	bl GetGpio
 	cmp r0,#1
-	ldreq r0, =origenX
-	ldreq r0, [r0]
-	
-	cmp r0, #0
-	ldrne r1, =origenX
-	addne r0, #1
-	strne r0, [r1]
+	bleq aumentoEnX
 	
 	@revisar boton izquierda
 	mov r0,#13
 	bl GetGpio
 	cmp r0,#1
-	ldreq r0, =origenX
-	ldreq r0, [r0]
-	
-	cmp r0, #0
-	ldrne r1, =origenX
-	subne r0, #1
-	strne r0, [r1]
+	bleq decrementoEnX
 	
 	@revisar boton abajo
 	mov r0,#6
 	bl GetGpio
 	cmp r0,#1
-	ldreq r0, =origenY
-	ldreq r0, [r0]
-	
-	cmp r0, #0
-	ldrne r1, =origenY
-	addne r0, #1
-	strne r0, [r1]
+	bleq aumentoEnY
+
+
 
 	push {r0}
 	bl wait
@@ -152,6 +116,56 @@ levelOneLoop:
 	bl wait
 	pop {r0}
 b levelOneLoop
+
+aumentoEnX:
+	push {lr}
+	ldr r0,=origenX
+	ldr r1,[r0]
+	ldr r2,=topeEnX
+	ldr r2,[r2]
+	cmp r1,r2
+	beq EndaumentoEnX
+	add r1,#20
+	str r1,[r0]
+EndaumentoEnX:
+pop {pc}
+
+aumentoEnY:
+	push {lr}
+	ldr r0,=origenY
+	ldr r1,[r0]
+	ldr r2,=topeEnY
+	ldr r2,[r2]
+	cmp r1,r2
+	beq EndaumentoEnY
+	add r1,#20
+	str r1,[r0]
+EndaumentoEnY:
+pop {pc}
+
+decrementoEnX:
+	push {lr}
+	ldr r0,=origenX
+	ldr r1,[r0]
+	cmp r1,#0
+	beq EnddecrementoEnX
+	sub r1,#20
+	str r1,[r0]
+EnddecrementoEnX:
+pop {pc}
+
+decrementoEnY:
+	push {lr}
+	ldr r0,=origenY
+	ldr r1,[r0]
+	cmp r1,#0
+	beq EnddecrementoEnY
+	sub r1,#20
+	str r1,[r0]
+EnddecrementoEnY:
+pop {pc}
+
+
 
 levelTwoLoop:
 	bl background2
@@ -191,17 +205,17 @@ wait:
 	ldr r0, =bign	 @ big number
 	ldr r0, [r0]
 	sleepLoop:
-	subs r0,#1
+	sub r0,#1
 	bne sleepLoop @ loop delay
 	mov pc,lr 
 
 .data
-.global pixelAddr,origenX,origenY, xRes, yRes
+.global pixelAddr,origenX,origenY
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
 	origenY: .word 0
 	origenX: .word 0
-	xRes: .word 0 
-	yRes: .word 0
+	topeEnX: .word 1000
+	topeEnY: .word 670
 .global myloc
 	myloc: .word 0
