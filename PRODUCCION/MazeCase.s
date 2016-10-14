@@ -5,7 +5,7 @@
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
 *******************************************************************************/
-@@compliar con: gcc -o main MazeCase.s MazeMethods.s intro.s GameOver.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s
+@@compliar con: gcc -o main MazeCase.s MazeMethods.s intro.s GameOver.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s colisiones.s
  
 @PUERTOS DE GPIO
 @@-----ENTRADA-----
@@ -80,6 +80,16 @@ b welcomeLoop
 levelOneLoop:
 	bl background1
 	bl character
+	push {r0}
+	bl wait
+	bl wait
+	pop {r0}
+	bl background1
+	bl character2
+	push {r0}
+	bl wait
+	bl wait
+	pop {r0}
 
 	@revisar boton arriba
 	mov r0,#26
@@ -104,21 +114,11 @@ levelOneLoop:
 	bl GetGpio
 	cmp r0,#1
 	bleq aumentoEnY
-
-
-
-	push {r0}
-	bl wait
-	pop {r0}
-	bl background1
-	bl character2
-	push {r0}
-	bl wait
-	pop {r0}
 b levelOneLoop
 
 aumentoEnX:
 	push {lr}
+	bl L1O1
 	ldr r0,=origenX
 	ldr r1,[r0]
 	ldr r2,=topeEnX
@@ -132,6 +132,7 @@ pop {pc}
 
 aumentoEnY:
 	push {lr}
+	bl L1O1
 	ldr r0,=origenY
 	ldr r1,[r0]
 	ldr r2,=topeEnY
@@ -159,9 +160,8 @@ decrementoEnY:
 	ldr r0,=origenY
 	ldr r1,[r0]
 	cmp r1,#0
-	beq EnddecrementoEnY
-	sub r1,#20
-	str r1,[r0]
+	subge r1,#20
+	strge r1,[r0]
 EnddecrementoEnY:
 pop {pc}
 
@@ -213,8 +213,8 @@ wait:
 .global pixelAddr,origenX,origenY
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
-	origenY: .word 0
-	origenX: .word 0
+	origenY: .word 1
+	origenX: .word 1
 	topeEnX: .word 1000
 	topeEnY: .word 670
 .global myloc
