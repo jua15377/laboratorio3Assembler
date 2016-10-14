@@ -448,7 +448,7 @@ end5:  							@final del objeto 4
 
 /******************************************************************************
 *	L1M1
-@	Maiz del laberinto 1
+*	Maiz del laberinto 1
 *	Por: Diego Castaneda, Carnet: 15151
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
@@ -460,5 +460,87 @@ end5:  							@final del objeto 4
 L1M1: 
 	push {lr}
 
-	pop {pc}
+	mov r3, #860
+	mov r4, #100
 
+	cmp r1, r3
+	bne Isabajo5
+
+	izquierda6:
+		cmp r2, r4
+		beq gameWon
+
+		add r4, #20
+		mov r5, #200
+
+		cmp r4, r5
+		bge Isabajo5
+
+		b izquierda6
+
+	Isabajo5: 
+
+	mov r3, #860
+	mov r4, #200
+
+	cmp r2, r4
+	bne Isderecha6
+
+	abajo5: 
+		cmp r1, r3
+		beq gameWon
+
+		add r3, #20
+		mov r5, #960
+
+		cmp r3, r5
+		bge Isderecha6
+
+		b abajo5
+
+	Isderecha6: 
+
+	mov r3, #960
+	mov r4, #200
+
+	cmp r1, r3
+	bne Isarriba4
+
+	derecha6: 
+		cmp r2, r4
+		beq gameWon
+
+		sub r4, #20
+		mov r5, #100
+
+		cmp r4, r5
+		ble Isarriba4
+
+		b derecha6
+	Isarriba4: 
+
+	mov r3, #960
+	mov r4, #100
+
+	cmp r2, r4
+	bne end6
+
+	arriba4: 
+		cmp r1, r3
+		beq gameWon
+
+		sub r3, #20
+		mov r5, #860
+
+		cmp r3, r5
+		ble end6
+
+		b arriba4
+
+
+gameWon:  					@Subrutina que lanzara la imagen de gameOver
+					
+	b winnersLoop	
+
+end6:  	
+	pop {pc}
