@@ -87,7 +87,83 @@ end1:  						@final del objeto 1
 	pop {lr}
 
 
-.data
-.align 2
+/******************************************************************************
+*	L1O2
+*	Segundo obstaculo del laberinto 1
+*	Por: Diego Castaneda, Carnet: 15151
+*   	 Jonnathan Juares, Carnet: 15377
+*   Taller de Assembler, Seccio: 30
+*	Parametros: 
+*		r1: posicion del pollo en x
+*		r2: posicion del pollo en y
+*******************************************************************************/
+.global L1O1
+L1O2: 
+	push {lr}
+
+	mov r3, #340
+	mov r4, #0
+
+	cmp r1, r3
+	bne Isabajo2
+
+	izquierda2: 
+		cmp r2, r4
+		beq gameOver2
+
+		add r4, #20
+		cmp r4, #440
+		bge Isabajo2
+
+		b izquierda2
+
+	Isabajo2: 
+
+	mov r3, #440
+	mov r4, #440
+
+	cmp r2, r4
+	bne Isderecha2
+
+	abajo2: 
+		cmp r1, r3
+		beq gameOver2
+
+		add r3, #20 
+		ldr r5, =500
+
+		cmp r3, r5
+		bge Isderecha2
+
+		b abajo2
+	
+	Isderecha2: 
+
+	ldr r3, =500
+	ldr r3, [r3]
+	mov r4, #440
+
+	cmp r1, r3
+	bne end2
+
+	derecha2: 
+		cmp r2, r4
+		beq gameOver2
+
+		sub r4, #20
+		cmo r4, #0
+		ble end2
+
+		b derecha2
+
+gameOver2:  					@Subrutina que lanzara la imagen de gameOver
+					
+	b GameOverLoop	
+
+end2:  						@final del objeto 1
+
+	pop {pc}
+
+
 
 
