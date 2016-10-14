@@ -384,8 +384,8 @@ background3:
 @	r7 - ancho
 @ 	r8 - alto
 @*******************************************************************************
-.global maiz
-maiz: 
+.global maizImg
+maizImg: 
 	push {lr} 
 	
 	mov r6,#0 	
@@ -401,13 +401,13 @@ maiz:
 	add r8, r10
 
 	mov r2, #100
-	filas:
+	filas7:
 		
 		mov r1, #860
 
-		dibujaPixel:
+		dibujaPixel7:
 			
-			ldr r5,=maiz
+			ldr r5, =maiz
 			ldrb r3,[r5,r6]			@Leer el dato de la matriz.
 			
 			ldr r0,=pixelAddr
@@ -420,15 +420,15 @@ maiz:
 			add r1,#1 
 
 			cmp r1, r7
-			blt dibujaPixel				@Aumenta el contador del ancho de la imagen
+			blt dibujaPixel7			@Aumenta el contador del ancho de la imagen
 		
 
-	finIm:	
+	finIm7:	
 		@ aumentamos y
 		add r2,#1
 					
 		@Revisamos si ya dibujamos toda la imagen.
 		teq r2,r8
-		bne filas
+		bne filas7
 
 	pop {pc}

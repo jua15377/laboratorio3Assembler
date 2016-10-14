@@ -1,5 +1,5 @@
 /******************************************************************************
-*	MazeCase.s
+*	MazeCase.str
 *	Programa principal del juego MazeCase
 *	Por: Diego Castaneda, Carnet: 15151
 *   	 Jonnathan Juares, Carnet: 15377
@@ -85,20 +85,20 @@ levelOneLoop:
 	ldr r2,=origenY
 	ldr r2,[r2]
 	@colisiones
-	bl L1O1
-	bl L1O2
-	bl L1O3
+	@bl L1O1
+	@bl L1O2
+	@bl L1O3
 
 	bl background1
 	bl character
-	bl maiz
+	bl maizImg
 	push {r0}
 	bl wait
 	bl wait
 	pop {r0}
 	bl background1
 	bl character2
-	bl maiz
+	bl maizImg
 	push {r0}
 	bl wait
 	bl wait
@@ -273,14 +273,14 @@ SuperWait:
 pop {pc}
 
 .data
-.global pixelAddr,origenX,origenY
+.global pixelAddr,origenX,origenY,milCien
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
 	origenY: .word 0
 	origenX: .word 0
 	topeEnX: .word 1000
 	topeEnY: .word 670
+	milCien: .word 1100
 .global myloc
 	myloc: .word 0
-	.global milCien
-	milCien: .word 1100
+

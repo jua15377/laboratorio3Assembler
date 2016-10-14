@@ -448,7 +448,7 @@ end5:  							@final del objeto 4
 
 /******************************************************************************
 *	L1M1
-*	Maiz del laberinto 1
+@	Maiz del laberinto 1
 *	Por: Diego Castaneda, Carnet: 15151
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
