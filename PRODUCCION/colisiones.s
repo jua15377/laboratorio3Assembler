@@ -50,7 +50,9 @@ L1O1:
 		beq gameOver 		@si en alguna caza, gameOver
 
 		add r4, #20
-		ldr r5, =520		@si no, se agrega uno al contador
+		ldr r5, =quinientos	@si no, se agrega uno al contador
+		ldr r5, [r5]
+		
 		cmp r4, r5 			@se compara con el limite
 		bge Isabajo1 		@Si ya llego al limite, se pasa a la siguiente frontera
 
@@ -59,7 +61,8 @@ L1O1:
 	Isabajo1: 				@Lo mismo pero para la fronterra de abao
 
 	mov r3, #260 			@Valor inicial de X 251,
-	ldr r4, =520 			@Valor incial de comparacion de Y , 515
+	ldr r4, =quinientos		@Valor incial de comparacion de Y , 520
+	ldr r4, [r4]
 
 	cmp r2, r4 				@Compara si se encuentra a la altura
 	bne end1 				@ y termina si no lo esta
@@ -83,4 +86,10 @@ end1:  						@final del objeto 1
 
 	pop {lr}
 
+
+.data
+.align 2
+
+quinientos: 
+	.word 520
 
