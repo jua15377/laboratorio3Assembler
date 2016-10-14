@@ -97,7 +97,7 @@ end1:  						@final del objeto 1
 *		r1: posicion del pollo en x
 *		r2: posicion del pollo en y
 *******************************************************************************/
-.global L1O1
+.global L1O2
 L1O2: 
 	push {lr}
 
@@ -165,5 +165,20 @@ end2:  						@final del objeto 1
 	pop {pc}
 
 
+/******************************************************************************
+*	L1O3
+*	Tercer obstaculo del laberinto 1
+*	Por: Diego Castaneda, Carnet: 15151
+*   	 Jonnathan Juares, Carnet: 15377
+*   Taller de Assembler, Seccio: 30
+*	Parametros: 
+*		r1: posicion del pollo en x
+*		r2: posicion del pollo en y
+*******************************************************************************/
+.global L1O3
+L1O3: 
+	push {lr}
+
+	pop {lr}
 
 
