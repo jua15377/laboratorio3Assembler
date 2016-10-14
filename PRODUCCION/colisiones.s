@@ -21,7 +21,7 @@ L1O1:
 	mov r4, #428
 
 	cmp r2, r4 				@Compara la posicion en Y con la del objeto
-	bne end1 			@Si no son iguales, compara otra frontera del objeto
+	bne Isderecha1 			@Si no son iguales, compara otra frontera del objeto
 	
 	superior1: 
 
@@ -30,7 +30,7 @@ L1O1:
 		
 		add r3, #20
 		cmp r3, #251
-		bge end1		@si ya se acabo la frontera, pasa a la siguente
+		bge Isderecha1		@si ya se acabo la frontera, pasa a la siguente
 
 		b superior1 		@Si no se ha acabado la frontera superior,
 								@ sigue comparando 
