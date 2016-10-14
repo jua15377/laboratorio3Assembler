@@ -52,10 +52,14 @@ main:
 /*-------------------------------------INICIA LOOPS INTRODUCTORIOS AL JUEGO----------------------------*/
 welcomeLoop: 										@El loop que se mantiene en la pagina de inicio hasta que un boton es presionado
 	bl welcomeImg 									
-	bl SuperWait 										
+	bl SuperWait
+	bl SuperWait 
+	bl SuperWait  										
 	bl welcomeImg2 									
-	bl SuperWait 									@Revisa el primero de los botones, se dirige al nivel uno si es presionado
-	
+	bl SuperWait
+	bl SuperWait  	
+	bl SuperWait 								@Revisa el primero de los botones, se dirige al nivel uno si es presionado
+
 	@revisar boton arriba
 	mov r0,#26
 	bl GetGpio
@@ -88,6 +92,7 @@ levelOneLoop: 										@comienza el nivel 1 del juego
 	bl L1O1
 	bl L1O2
 	bl L1O3
+	bl L1M1
 
 	bl background1 									@Imprime la gallina, el fondo y el maiz, segun el orden de posicion
 	bl character
@@ -171,8 +176,9 @@ decrementoEnY: 										@Subrutina para mover la gallina hacia abajo
 	ldr r0,=origenY
 	ldr r1,[r0]
 	cmp r1,#0
-	subge r1,#20
-	strge r1,[r0]
+	beq EndaumentoEnY
+	sub r1,#20
+	str r1,[r0]
 EnddecrementoEnY:
 pop {pc}
 
@@ -279,7 +285,7 @@ pop {pc}
 	origenY: .word 0
 	origenX: .word 0
 	topeEnX: .word 1000
-	topeEnY: .word 670
+	topeEnY: .word 660
 	milCien: .word 1100
 .global myloc
 	myloc: .word 0

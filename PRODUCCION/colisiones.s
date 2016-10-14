@@ -420,7 +420,8 @@ L1O5:
 
 	Isabajo4: 
 
-	mov r3, #1020
+	ldr r3,=milCien
+	ldr r3,[r3]
 	mov r4, #540
 
 	cmp r2, r4
