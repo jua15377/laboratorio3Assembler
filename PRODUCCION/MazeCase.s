@@ -52,29 +52,30 @@ main:
 	
 welcomeLoop:
 	bl welcomeImg
+	bl SuperWait
 	@revisar boton arriba
 	mov r0,#26
 	bl GetGpio
 	cmp r0,#1
-	bleq levelOneLoop
+	beq levelOneLoop
 	
 	@revisar boton derecha
 	mov r0,#19
 	bl GetGpio
 	cmp r0,#1
-	bleq levelTwoLoop
+	beq levelTwoLoop
 	
 	@revisar boton izquierda
 	mov r0,#13
 	bl GetGpio
 	cmp r0,#1
-	bleq levelThreeLoop
+	beq levelThreeLoop
 	
 	@revisar boton abajo
 	mov r0,#6
 	bl GetGpio
 	cmp r0,#1
-	bleq GameOverLoop
+	beq GameOverLoop
 b welcomeLoop
 
 levelOneLoop:
@@ -145,7 +146,7 @@ aumentoEnY:
 	ldr r2,[r2]
 	cmp r1,r2
 	beq EndaumentoEnY
-	add r1,#1
+	add r1,#20
 	str r1,[r0]
 EndaumentoEnY:
 pop {pc}
@@ -201,35 +202,25 @@ b levelThreeLoop
 
 .global GameOverLoop
 GameOverLoop:
-	bl GameOverImg
-	push {r0}
-	bl wait
-	pop {r0}
+	ldr r0,=origenX
+	ldr r1,[r0]
+	mov r1,#0
+	str r1,[r0]
 
-	@revisar boton arriba
-	mov r0,#26
-	bl GetGpio
-	cmp r0,#1
-	bleq welcomeLoop
-	
-	@revisar boton derecha
-	mov r0,#19
-	bl GetGpio
-	cmp r0,#1
-	bleq welcomeLoop
-	
-	@revisar boton izquierda
-	mov r0,#13
-	bl GetGpio
-	cmp r0,#1
-	bleq welcomeLoop
+	ldr r0,=origenY
+	ldr r1,[r0]
+	mov r1,#0
+	str r1,[r0]
+
+	bl GameOverImg
+	bl SuperWait
 	
 	@revisar boton abajo
 	mov r0,#6
 	bl GetGpio
 	cmp r0,#1
-	bleq welcomeLoop
-	
+	beq welcomeLoop
+
 b GameOverLoop
 
 
@@ -241,12 +232,24 @@ wait:
 	bne sleepLoop @ loop delay
 	mov pc,lr 
 
+SuperWait:
+	push {lr}
+	bl wait
+	bl wait
+	bl wait
+	bl wait
+	bl wait
+	bl wait
+	bl wait
+	bl wait
+pop {pc}
+
 .data
 .global pixelAddr,origenX,origenY
 	pixelAddr: .word 0
 	bign: .word 0xfffffff
-	origenY: .word 1
-	origenX: .word 1
+	origenY: .word 0
+	origenX: .word 0
 	topeEnX: .word 1000
 	topeEnY: .word 670
 .global myloc
