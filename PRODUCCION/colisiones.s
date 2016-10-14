@@ -410,7 +410,8 @@ L1O5:
 		beq gameOver5
 
 		add r3, #20
-		mov r5, #1100
+		ldr r5, =milCien
+		ldr r5,[r5]
 
 		cmp r3, r5
 		bge Isabajo4
@@ -430,7 +431,8 @@ L1O5:
 		beq gameOver5
 
 		add r3, #20 
-		mov r5, #1100
+		ldr r5, =milCien
+		ldr r5,[r5]
 
 		cmp r3, r5
 		bge end5

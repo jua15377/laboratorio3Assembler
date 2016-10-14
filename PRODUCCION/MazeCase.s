@@ -5,7 +5,7 @@
 *   	 Jonnathan Juares, Carnet: 15377
 *   Taller de Assembler, Seccio: 30
 *******************************************************************************/
-@@compliar con: gcc -o main MazeCase.s MazeMethods.s intro.s GameOver.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s colisiones.str
+@@compliar con: gcc -o main MazeCase.s MazeMethods.s intro.s GameOver.s maiz.s testlaberintoL2.s testlaberintoL3.s gallinaSprite1.s gallinaSprite2.s laberintoL1.s pixelV2.c phys_to_virt.c gpio0_2.s colisiones.s
  
 @PUERTOS DE GPIO
 @@-----ENTRADA-----
@@ -282,3 +282,5 @@ pop {pc}
 	topeEnY: .word 670
 .global myloc
 	myloc: .word 0
+	.global milCien
+	milCien: .word 1100
